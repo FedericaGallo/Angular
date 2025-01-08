@@ -6,7 +6,7 @@ node -v
 ```
 Verifica che npm sia installato
 ```bash
-node -v
+npm -v
 ```
 Installa Angular
 ```bash
@@ -41,7 +41,8 @@ testo a caso
 testo a caso  
 testo a caso  
 
-# Angular 
-è un framework che ti permette di creare single page application.  
+[Introduzione](#angular)
+
+
 
 
