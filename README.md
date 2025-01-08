@@ -1,5 +1,11 @@
 # Angular
 
+[Introduzione](#angular)
+[Introduzione](#angular)
+[Introduzione](#angular)
+[Introduzione](#angular)
+[Introduzione](#angular)
+
 Verifica che Node.js sia installato
 ```bash
 node -v
@@ -41,7 +47,7 @@ testo a caso
 testo a caso  
 testo a caso  
 
-[Introduzione](#angular)
+
 
 
 
