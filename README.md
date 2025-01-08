@@ -28,4 +28,7 @@ ng generate component nome-componente
 ng g c nome-componente
 ```
 
-Angular è un framework che ti permette di creare single page application.
+# Angular 
+è un framework che ti permette di creare single page application.  
+
+
