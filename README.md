@@ -376,3 +376,13 @@ Questo approccio migliora l'efficienza:
 - Riduce il numero di operazioni sul DOM.
 - Minimizza le chiamate al server.
 - Mantiene lo stato di eventuali elementi non modificati (es. input, selezioni).
+
+
+```typescript
+export class ElementComponent implement onInit{
+element: {type: string, name: string, content:string};
+}
+```
+```html
+<p *ngIf="element.type==='server'" style="color: red">{{element.content}}</p>
+```
