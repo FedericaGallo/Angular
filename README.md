@@ -33,23 +33,30 @@ ng generate component nome-componente
 ng g c nome-componente
 ```
 ## Introduzione
-#### componente.ts
-```javascript
+### componente.ts
+I componenti sono i mattoni fondamentali di qualsiasi applicazione Angular. Ogni componente ha tre parti:
+- classe TypeScript
+- template HTML
+- Stili CSS
+```typescript
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-example',
   templateUrl: './example.component.html',
-})
+  styleUrls: ['./exemple.component.css']
+}),
+
 export class ExampleComponent {}
 
 ```
-#### utilizzo componente 
+### utilizzo componente 
 ```html
 <app-example></app-example>
 ```
+La proprietà selector della configurazione del componente fornisce un nome da usare quando si fa riferimento al componente in un altro template. 
 ## Binding
-#### data binding
+### data binding
 In Angular, un binding crea una connessione dinamica tra il template di un componente e i suoi dati. Questa connessione garantisce che le modifiche ai dati del componente aggiornino automaticamente il template renderizzato.
 ```javascript
 export class AppComponent {
@@ -59,7 +66,7 @@ export class AppComponent {
 ```html
 <p>{{ message }}</p>
 ```
-#### string interpolation
+### string interpolation
 Puoi associare testo dinamico nei template utilizzando le doppie parentesi graffe, che indicano ad Angular che è responsabile dell'espressione al loro interno e che deve assicurarne l'aggiornamento corretto. Questo viene chiamato interpolazione del testo.
 ```javascript
 @Component({
@@ -72,18 +79,41 @@ export class AppComponent {
   theme = 'dark';
 }
 ```
-#### event bindiding
+È possibile utilizzare questa sintassi anche per chiamare funzioni, scrivere espressioni e altro ancora.
+### property binding 
+Il binding delle proprietà in Angular consente di impostare i valori delle proprietà di elementi HTML, componenti Angular e altro.
+```html
+<img alt="photo" [src]="imageURL">
+```
+In questo esempio, il valore dell'attributo src sarà legato alla proprietà della classe imageURL. Il valore di imageURL sarà impostato come attributo src del tag img.
+
+```typescript
+import {Component} from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  styleUrls: ['app.component.css'],
+  template: `
+    <div [contentEditable]="isEditable"></div>
+  `,
+})
+export class AppComponent {
+  isEditable = true;
+}
+```
+
+### event binding
 ```html
 <button (click)="onClick()">Clicca qui</button>
 ```
-```javascript
+```typescript
 export class AppComponent {
   onClick() {
     alert('Hai cliccato il bottone!');
   }
 }
 ```
-#### two-way binding
+### two-way binding
 Per utilizzare il two-way binding con i controlli dei form nativi, devi:
 
 - Importare il FormsModule da @angular/forms.
@@ -105,16 +135,47 @@ export class AppComponent {
   firstName = 'Ada';
 }
 ```
-#### Two-way binding between components
-ogni binding bidirezionale per i componenti richiede i seguenti elementi:
+### Component Communication with @Input
+è possibile passare dati da un componente padre a un componente figlio. Un componente specifica i dati che accetta dichiarando gli input:
+__child component__
+```typescript
+import {Component, Input} from '@angular/core';
+
+@Component({
+  selector: 'app-user',
+  template: `
+    <p>The user's name is {{ name }}</p>
+  `,
+})
+export class UserComponent {
+  @Input() name = '';
+}
+```
+__parent component__
+```typescript
+import {Component} from '@angular/core';
+import {UserComponent} from './user.component';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <app-user name="Simran" />
+  `,
+  imports: [UserComponent],
+})
+export class AppComponent {}
+```
+### Two-way binding between components
+Ogni binding bidirezionale per i componenti richiede i seguenti elementi:
 Il componente figlio deve includere:
 - Una proprietà @Input().
 - Un corrispondente @Output() con lo stesso nome della proprietà @Input(), ma con "Change" aggiunto alla fine. L'emitter deve anche emettere lo stesso tipo della proprietà @Input().
 - Un metodo che emette il valore aggiornato dell'@Input() attraverso l'evento @Output().
 Il componente genitore deve:
 - Avvolgere il nome della proprietà @Input() nella sintassi del binding bidirezionale.
-- Specificare la proprietà corrispondente a cui verrà assegnato il valore aggiornato.
-Parent component
+- Specificare la proprietà corrispondente a cui verrà assegnato il valore aggiornato.   
+
+__Parent component__
 ```javascript
 import { Component } from '@angular/core';
 import { CounterComponent } from './counter/counter.component';
@@ -132,9 +193,8 @@ export class AppComponent {
   initialCount = 18;
 }
 ```
-child component  
-
-@imput serve per ricevere il valore iniziale dal contatore. La proprietà count riceve il valore initialCount dal genitore.  
+__child component__  
+@input serve per ricevere il valore iniziale dal contatore. La proprietà count riceve il valore initialCount dal genitore.  
 @output serve per notificare il genitore quando il valore cambia. L'evento si chiama countChange e usa un EventEmitter per inviare il nuovo valore al genitore.
 ```javascript
 import { Component, EventEmitter, Input, Output } from '@angular/core';
@@ -156,7 +216,7 @@ export class CounterComponent {
 }
 ```
 
-# Direttive
+### Direttive
 I diversi tipi di direttive in Angular sono i seguenti:  
 - __componenti__ : Un componente è una direttiva con un template associato.
   ```html
