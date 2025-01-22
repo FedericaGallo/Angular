@@ -32,6 +32,9 @@ ng generate component nome-componente
 ```bash
 ng g c nome-componente
 ```
+```bash
+ng g c nome-componente --skip-tests
+```
 ## Introduzione
 ### componente.ts
 I componenti sono i mattoni fondamentali di qualsiasi applicazione Angular. Ogni componente ha tre parti:
