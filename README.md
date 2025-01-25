@@ -451,15 +451,15 @@ element: {type: string, name: string, content:string};
 <p *ngIf="element.type==='server'" style="color: red">{{element.content}}</p>
 ```
 ### RxJS
-RxJS è una libreria per comporre programmi asincroni e basati su eventi utilizzando sequenze di osservabili. Fornisce un tipo centrale, l'Observable, tipi satellite (Observer, Scheduler, Subjects) e operatori ispirati ai metodi Array (map, filter, reduce, every, ecc.) per consentire la gestione di eventi asincroni come collezioni.
+RxJS è una libreria per comporre programmi asincroni e basati su eventi utilizzando sequenze di osservabili. Fornisce un tipo centrale, l'Observable, tipi satellite (Observer, Scheduler, Subjects) e operatori ispirati ai metodi Array (map, filter, reduce, every, ecc.) per consentire la gestione di eventi asincroni come collezioni.  
 I concetti essenziali di RxJS che risolvono la gestione asincrona degli eventi sono:
 
-- Observable: rappresenta l'idea di una collezione invocabile di valori o eventi futuri.
-- Observer: è un insieme di callback che sa come ascoltare i valori forniti dall'Observable.
-- Subscription: rappresenta l'esecuzione di un Observable, è utile soprattutto per annullare l'esecuzione.
-- Operatori: sono funzioni pure che consentono uno stile di programmazione funzionale per trattare le collezioni con operazioni come map, filter, concat, reduce, ecc.
-- Oggetto: è equivalente a un Emettitore di eventi e rappresenta l'unico modo per trasmettere un valore o un evento a più Osservatori.
-- Scheduler: sono dispatcher centralizzati per controllare la concorrenza, consentendo di coordinare il momento in cui avviene la computazione, ad esempio, su setTimeout o requestAnimationFrame o altri.
+- __Observable__: rappresenta l'idea di una collezione invocabile di valori o eventi futuri.
+- __Observer__: è un insieme di callback che sa come ascoltare i valori forniti dall'Observable.
+- __Subscription__: rappresenta l'esecuzione di un Observable, è utile soprattutto per annullare l'esecuzione.
+- __Operatori__: sono funzioni pure che consentono uno stile di programmazione funzionale per trattare le collezioni con operazioni come map, filter, concat, reduce, ecc.
+- __Oggetto__: è equivalente a un Emettitore di eventi e rappresenta l'unico modo per trasmettere un valore o un evento a più Osservatori.
+- __Scheduler__: sono dispatcher centralizzati per controllare la concorrenza, consentendo di coordinare il momento in cui avviene la computazione, ad esempio, su setTimeout o requestAnimationFrame o altri.
 
   ### HttpClient
   Angular fornisce un'API HTTP client per le applicazioni Angular, la service class HttpClient in @angular/common/http.
