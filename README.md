@@ -461,6 +461,26 @@ I concetti essenziali di RxJS che risolvono la gestione asincrona degli eventi s
 - __Oggetto__: è equivalente a un Emettitore di eventi e rappresenta l'unico modo per trasmettere un valore o un evento a più Osservatori.
 - __Scheduler__: sono dispatcher centralizzati per controllare la concorrenza, consentendo di coordinare il momento in cui avviene la computazione, ad esempio, su setTimeout o requestAnimationFrame o altri.
 
+> "An observable is an object that produces and controls a stream of data"
+```typescript
+interval(1000).subscribe({
+next: (val) => console.log(val),
+complete: () => {console.log("fine")},
+error: () => console.log
+});
+```
+
+La funzione interval crea un Observable che emette un numero ogni intervallo di tempo specificato, è necessario sottoscrivere ```subscribe()``` per dare il via all'osservabile. Questo metodo di sottoscrizione prende un cosiddetto oggetto osservatore, che è un oggetto
+che può implementare fino a tre metodi. Una funzione next che verrà attivata per ogni nuovo valore emesso.
+```typescript
+interval(1000).pipe(
+map(val)=> val* 2)
+).subscribe({
+next: (val) => console.log(val)
+});
+```
+è possibile chiamare ```pipe()``` prima di sottoscrivere. ```pipe()``` consente di aggiungere alcuni __operatori__, come ad esempio map. map è una funzione che prende un'altra funzione come argomento e viene eseguita su ogni valore emesso dal'Observable. Il risultato viene passato ai subscriber.
+
   ### HttpClient
   Angular fornisce un'API HTTP client per le applicazioni Angular, la service class HttpClient in @angular/common/http.
 ```typescript
