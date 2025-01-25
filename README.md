@@ -473,12 +473,12 @@ La libreria  RxJS offre molte funzioni per creare Observable.
 La funzione interval crea un Observable che emette un numero ogni intervallo di tempo specificato in millisecondi, è necessario sottoscrivere ```subscribe()``` per dare il via all'osservabile. Questo metodo di sottoscrizione prende un cosiddetto oggetto osservatore, che è un oggetto che può implementare fino a tre metodi. Ad esempio una funzione __next__ che verrà attivata per ogni nuovo valore emesso.
 ```typescript
 interval(1000).pipe(
-map(val)=> val* 2)
+map((val)=> val* 2)
 ).subscribe({
 next: (val) => console.log(val)
 });
 ```
-è possibile chiamare ```pipe()``` prima di sottoscrivere. ```pipe()``` consente di aggiungere alcuni __operatori__, come ad esempio map. map è una funzione che prende un'altra funzione come argomento e viene eseguita su ogni valore emesso dal'Observable. Il risultato viene passato ai subscriber.
+è possibile chiamare ```pipe()``` prima di sottoscrivere. ```pipe()``` consente di aggiungere alcuni __operatori__, come ad esempio map. ```map()``` è una funzione che prende un'altra funzione come argomento e viene eseguita su ogni valore emesso dal'Observable. Il risultato viene passato ai subscriber.
 ```typescript
 import {DestroyRef, inject, Component, onInit } from '@angulat/core';
 ```
