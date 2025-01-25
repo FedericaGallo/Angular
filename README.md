@@ -493,4 +493,22 @@ http.get<Config>('/api/config').subscribe(config => {
   // process the configuration.
 });
 ```
-<Config> è un tipo generico che viene passato al metodo get(). Indica che la risposta che ci aspettiamo dal server (i dati che riceviamo) sarà di tipo Config.
+```<Config>``` è un tipo generico che viene passato al metodo get(). Indica che la risposta che ci aspettiamo dal server (i dati che riceviamo) sarà di tipo Config.
+
+```typescript
+getDocenti() {
+   const subscribtion = this.httpClient.get<{docenti : Docente[]}>('http://localhost:8080/docente/findAll', {observe: 'response'}).subscribe({
+      next: (response) => {
+        console.log(response.body?.docenti);
+        console.log(response.status);
+        }
+      });
+}
+```
+```typescript
+http.post<Config>('/api/config', newConfig).subscribe(config => {
+  console.log('Updated config:', config);
+});
+```
+```newConfig``` è il corpo della richiesta POST, ovvero i dati che vogliamo inviare al server.
+Questo oggetto (newConfig) contiene le informazioni che indicano cosa vogliamo cambiare sul server.
