@@ -505,6 +505,7 @@ getDocenti() {
       });
 }
 ```
+L'oggetto di configurazione passato come secondo argomento ```{observe: 'response'}``` accetta come valore 'response' ed 'events'. Nel primo caso ```next()``` riceverà l'intero HttpResponse object, con body, header, status; nel secondo caso la funzione ```next()``` verrà triggerata da diversi eventi.
 ```typescript
 http.post<Config>('/api/config', newConfig).subscribe(config => {
   console.log('Updated config:', config);
