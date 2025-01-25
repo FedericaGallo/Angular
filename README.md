@@ -485,4 +485,12 @@ export class ConfigService {
   }
 }
 ```
-HttpClient ha metodi corrispondenti ai diversi verbi HTTP usati per fare richieste, sia per caricare dati che per applicare mutazioni sul server. Ogni metodo restituisce un RxJS Observable che, una volta sottoscritto, invia la richiesta e poi emette i risultati quando il server risponde.
+HttpClient ha metodi corrispondenti ai diversi verbi HTTP usati per fare richieste, sia per caricare dati che per applicare mutazioni sul server. Ogni metodo restituisce un __RxJS Observable__ che, una volta sottoscritto, invia la richiesta e poi emette i risultati quando il server risponde.
+Attraverso un oggetto options passato al metodo request, si possono regolare varie proprietà della richiesta e il tipo di risposta restituito.
+Il recupero dei dati da un backend richiede spesso una richiesta GET, utilizzando il metodo HttpClient.get(). Questo metodo accetta due argomenti: la stringa dell'URL dell'endpoint da cui prelevare i dati e un oggetto opzionale options per configurare la richiesta.
+```typescript
+http.get<Config>('/api/config').subscribe(config => {
+  // process the configuration.
+});
+```
+<Config> è un tipo generico che viene passato al metodo get(). Indica che la risposta che ci aspettiamo dal server (i dati che riceviamo) sarà di tipo Config.
