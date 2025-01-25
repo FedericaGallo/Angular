@@ -5,7 +5,7 @@
 - [Binding](#binding)  
 - [Direttive](#direttive)    
 - [RxJS](#rxjs)
-- 
+  
 Verifica che Node.js sia installato
 ```bash
 node -v
@@ -469,9 +469,8 @@ complete: () => {console.log("fine")},
 error: () => console.log
 });
 ```
-
-La funzione interval crea un Observable che emette un numero ogni intervallo di tempo specificato, è necessario sottoscrivere ```subscribe()``` per dare il via all'osservabile. Questo metodo di sottoscrizione prende un cosiddetto oggetto osservatore, che è un oggetto
-che può implementare fino a tre metodi. Una funzione next che verrà attivata per ogni nuovo valore emesso.
+La libreria  RxJS offre molte funzioni per creare Observable.
+La funzione interval crea un Observable che emette un numero ogni intervallo di tempo specificato in millisecondi, è necessario sottoscrivere ```subscribe()``` per dare il via all'osservabile. Questo metodo di sottoscrizione prende un cosiddetto oggetto osservatore, che è un oggetto che può implementare fino a tre metodi. Ad esempio una funzione __next__ che verrà attivata per ogni nuovo valore emesso.
 ```typescript
 interval(1000).pipe(
 map(val)=> val* 2)
@@ -480,7 +479,25 @@ next: (val) => console.log(val)
 });
 ```
 è possibile chiamare ```pipe()``` prima di sottoscrivere. ```pipe()``` consente di aggiungere alcuni __operatori__, come ad esempio map. map è una funzione che prende un'altra funzione come argomento e viene eseguita su ogni valore emesso dal'Observable. Il risultato viene passato ai subscriber.
+```typescript
+import {DestroyRef, inject, Component, onInit } from '@angulat/core';
+```
+__DestroyRef__ viene iniettato nel costruttore utilizzando la funzione inject
+```typescript
+ngOnInit(): void {
+private destroyRef = inject(DestroyRef);
+const subscription = interval(1000).subscribe({
+next: (val) => console.log(val)
+});
+this.destroyRef.onDestroy(() => {
+subscription.unsubscribe();
+});
+}
+```
+__BehaviorSubject__: È un tipo di Subject che richiede un valore iniziale e emette il valore corrente ai nuovi sottoscrittori immediatamente al momento della sottoscrizione.
+```typescript
 
+```
   ### HttpClient
   Angular fornisce un'API HTTP client per le applicazioni Angular, la service class HttpClient in @angular/common/http.
 ```typescript
