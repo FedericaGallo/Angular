@@ -4,7 +4,8 @@
 - [Introduzione](#introduzione)  
 - [Binding](#binding)  
 - [Direttive](#direttive)    
-
+- [RxJS](#rxjs)
+- 
 Verifica che Node.js sia installato
 ```bash
 node -v
