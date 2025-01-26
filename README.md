@@ -6,7 +6,7 @@
 - [Direttive](#direttive)    
 - [RxJS](#rxjs)
 - [Signals](#signals)
-- [Routing](#routing)
+- [Routing](#routing)  
 Verifica che Node.js sia installato
 ```bash
 node -v
@@ -597,8 +597,8 @@ effect(() => {
 });
 ```
 effect è un meccanismo che permette di eseguire azioni collaterali ogni volta che uno o più signals cambiano
-### Routing
-## Dynamic routes
+## Routing
+### Dynamic routes
 ```typescript
 {path: 'docenti/:id', component: DocenteComponent},
 ```
@@ -613,3 +613,5 @@ export class DocenteComponent {
 idd = input.required<number>();
 }
 ```
+https://angular.dev/guide/components/inputs
+https://angular.dev/api/core/Input
