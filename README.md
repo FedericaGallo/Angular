@@ -5,6 +5,7 @@
 - [Binding](#binding)  
 - [Direttive](#direttive)    
 - [RxJS](#rxjs)
+- [Signals](#signals)
   
 Verifica che Node.js sia installato
 ```bash
@@ -462,6 +463,9 @@ I concetti essenziali di RxJS che risolvono la gestione asincrona degli eventi s
 - __Scheduler__: sono dispatcher centralizzati per controllare la concorrenza, consentendo di coordinare il momento in cui avviene la computazione, ad esempio, su setTimeout o requestAnimationFrame o altri.
 
 > "An observable is an object that produces and controls a stream of data"
+ 
+> "Observables are values over time. It's a pipeline of values that are emitted over time"
+ 
 ```typescript
 interval(1000).subscribe({
 next: (val) => console.log(val),
@@ -481,6 +485,16 @@ next: (val) => console.log(val)
 è possibile chiamare ```pipe()``` prima di sottoscrivere. ```pipe()``` consente di aggiungere alcuni __operatori__, come ad esempio map. ```map()``` è una funzione che prende un'altra funzione come argomento e viene eseguita su ogni valore emesso dal'Observable. Il risultato viene passato ai subscriber.
 ```typescript
 import {DestroyRef, inject, Component, onInit } from '@angulat/core';
+```
+```typescript
+import {Observable } from 'rxjs';
+customInterval$ = new Observable((subscriber)=>{
+setInterval(()=>{subscriber.next({message: 'New value', value: '1'});
+}, 2000)
+});
+this.customInterval$.subscribe({
+next: (val)=> console.log(val)
+});
 ```
 __DestroyRef__ viene iniettato nel costruttore utilizzando la funzione inject
 ```typescript
@@ -524,7 +538,7 @@ export class ConfigService {
 }
 ```
 HttpClient ha metodi corrispondenti ai diversi verbi HTTP usati per fare richieste, sia per caricare dati che per applicare mutazioni sul server. Ogni metodo restituisce un __RxJS Observable__ che, una volta sottoscritto, invia la richiesta e poi emette i risultati quando il server risponde.
-Attraverso un oggetto options passato al metodo request, si possono regolare varie proprietà della richiesta e il tipo di risposta restituito.
+Attraverso un oggetto options passato al metodo request, si possono regolare varie proprietà della richiesta e il tipo di risposta restituito.   
 Il recupero dei dati da un backend richiede spesso una richiesta GET, utilizzando il metodo HttpClient.get(). Questo metodo accetta due argomenti: la stringa dell'URL dell'endpoint da cui prelevare i dati e un oggetto opzionale options per configurare la richiesta.
 ```typescript
 http.get<Config>('/api/config').subscribe(config => {
@@ -551,3 +565,35 @@ http.post<Config>('/api/config', newConfig).subscribe(config => {
 ```
 ```newConfig``` è il corpo della richiesta POST, ovvero i dati che vogliamo inviare al server.
 Questo oggetto (newConfig) contiene le informazioni che indicano cosa vogliamo cambiare sul server.
+
+### Signals
+Un segnale è un involucro attorno a un valore che notifica agli utenti interessati quando il valore cambia. I segnali possono contenere qualsiasi valore, dalle primitive alle strutture dati complesse.  
+Il valore di un segnale si legge chiamando la sua funzione getter, che consente ad Angular di tenere traccia di dove il segnale viene utilizzato.  
+I segnali possono essere scrivibili o di sola lettura.
+```typescript
+const count = signal(0);
+// Signals are getter functions - calling them reads their value.
+console.log('The count is: ' + count());
+```
+Un "signal" è una funzione che agisce come un "getter". Un getter è una funzione che viene utilizzata per ottenere (o leggere) il valore di una variabile. Quindi, ogni volta che chiami count(), stai effettivamente "leggendo" il valore che è stato assegnato a quel signal.
+Per cambiare il valore di un signal scrivibile, puoi farlo in due modi:
+Usando il metodo .set() direttamente:
+```typescript
+count.set(3);
+```
+Usando l'operazione .update() per calcolare un nuovo valore a partire dal precedente:
+```typescript
+// Incrementa count di 1.
+count.update(value => value + 1);
+```
+```typescript
+const count = signal(0);
+const doubleCount = computed(() => count() * 2);
+```
+```typescript
+effect(() => {
+  // Operazione che dipende dai signals
+  console.log(`Il count attuale è: ${count()}`);
+});
+```
+effect è un meccanismo che permette di eseguire azioni collaterali ogni volta che uno o più signals cambiano
