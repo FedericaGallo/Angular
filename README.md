@@ -704,13 +704,17 @@ onSubmit(formData: NgForm) {
 ```
 #### reactive form
 ```typescript
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/form';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/form';
 ```
 fare l'importazione
 ```typescript
 form = new FormGroup({
-email: new FormControl(''),
-password: new FormControl('')
+email: new FormControl('', {
+validators: [ Validators.email, Validators.required ]
+}),
+password: new FormControl('', {
+validators: [ Validators.required, Validators.minLength(6) ]
+})
 });
 onSubmit(){
 console.log(this.form.value.nomr);
@@ -736,3 +740,4 @@ console.log(this.form.value.nomr);
  </p>
 </form>
 ```
+#### creare custom validators
