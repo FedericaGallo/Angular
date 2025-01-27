@@ -599,9 +599,12 @@ effect(() => {
 effect è un meccanismo che permette di eseguire azioni collaterali ogni volta che uno o più signals cambiano
 ## Routing
 ### Dynamic routes
+#### extract dynamic route parameters via signal-based inputs 
+in app.routes.ts
 ```typescript
 {path: 'docenti/:id', component: DocenteComponent},
 ```
+in app.config.ts
 ```typescript
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 export const appConfig: ApplicationConfig = {
@@ -610,8 +613,39 @@ export const appConfig: ApplicationConfig = {
 ```
 ```typescript
 export class DocenteComponent {
-idd = input.required<number>();
+id = input.required<number>();
 }
+```
+```typescript
+@Input({required: true}) userId!: string;
+```
+#### extract dynamic route parameters via Observables
+```typescript
+import { ActivateddRoute } from '@angular/router';
+private activatedRoutes = inject(ActivatedRoutes);
+ngOnInit(): void{
+console.log(this.activatedRoutes);
+this.activatedRoutes.paramMap.subscribe({
+next: (paramMap) => this.usersService.users.find(u => u.id === paramMap.get('id'))
+})
+}
+```
+activatedRoutes è un oggetto che contiene una serie di subject, quindi una serie di Observables che contengono proprietà aggiuntive come ParamMap a cui ci si può iscrivere per essere avvisati delle modifiche ai parametri del percorso. ParamMap è un oggetto che contiene coppie chiave valore.
+### nested routes
+```typescript
+  {path: 'docenti/:id',
+     component: DocenteComponent,
+     children: [{
+       path: 'edit',
+       component: FormdocenteComponent,
+       },
+       ]
+     },
+```
+il tag ```<router-outlet />``` va aggiunto nel componente padre
+```typescript
+<router-outlet />
 ```
 https://angular.dev/guide/components/inputs
 https://angular.dev/api/core/Input
+
