@@ -6,7 +6,9 @@
 - [Direttive](#direttive)    
 - [RxJS](#rxjs)
 - [Signals](#signals)
-- [Routing](#routing)  
+- [Routing](#routing)
+- [Form](#form)
+  
 Verifica che Node.js sia installato
 ```bash
 node -v
@@ -654,4 +656,83 @@ https://angular.dev/api/core/Input
     return throwError(() => error);
   })
 );
+```
+### Form
+#### template driven approach
+```html
+<form (ngSubmit)="onSubmit(form)" #form="ngForm">
+  <div class="input-group">
+    <p>
+      <label>Nome</label>
+      <input type="text" ngModel name="nome" id="nome" required #nome="ngModel">
+    </p>
+    <p>
+      <label>Cognome</label>
+      <input type="text" ngModel name="cognome" id="cognome" required #cognome="ngModel">
+    </p>
+    <p>
+      <label></label>
+      <input>
+    </p>
+  </div>
+  <p>
+    <button>salva</button>
+  </p>
+ <p *ngIf ="form.form.touched && form.form.invalid">
+   invalid values detected
+ </p>
+</form>
+```
+```typescript
+ <p *ngIf ="nome.touched && cognome.touched && form.form.invalid">
+   invalid values detected
+ </p>
+```
+```typescript
+ <p *ngIf ="nome.touched && cognome.touched && form.form.invalid">
+   invalid values detected
+ </p>
+```
+```typescript
+onSubmit(formData: NgForm) {
+  if(formData.form.invalid){
+    return;}
+  const enteredName = formData.form.value.nome;
+  console.log(enteredName);
+  formData.form.reset();
+  }
+```
+#### reactive form
+```typescript
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/form';
+```
+fare l'importazione
+```typescript
+form = new FormGroup({
+email: new FormControl(''),
+password: new FormControl('')
+});
+onSubmit(){
+console.log(this.form.value.nomr);
+}
+```
+```html
+<form (ngSubmit)="onSubmit(form)" [formGroup]="">
+  <div class="input-group">
+    <p>
+      <label>Nome</label>
+      <input type="text" name="nome" id="nome" [formControl]="form.control.nome">
+    </p>
+    <p>
+      <label>Cognome</label>
+      <input type="text" name="cognome" id="cognome" formControlName="cognome">
+    </p>
+  </div>
+  <p>
+    <button>salva</button>
+  </p>
+ <p *ngIf ="form.form.touched && form.form.invalid">
+   invalid values detected
+ </p>
+</form>
 ```
