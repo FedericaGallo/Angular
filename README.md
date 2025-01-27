@@ -648,4 +648,10 @@ il tag ```<router-outlet />``` va aggiunto nel componente padre
 ```
 https://angular.dev/guide/components/inputs
 https://angular.dev/api/core/Input
-
+```typescript
+.pipe(
+  catchError((error: any) => {
+    return throwError(() => error);
+  })
+);
+```
