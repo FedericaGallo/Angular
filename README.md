@@ -672,6 +672,26 @@ paramsInheritanceStrategy: 'always',
 };
 ```
 Di default le rotte figlie non ricevono i parametri della rotta padre come input.
+
+```html
+<a routerLink="../">Cancel</a>
+```
+Questa sintassi indica che si vuole tornare un livello sopra nel route path, essenzialmente elimina l'ultimo segmento del route path.
+#### programmatic navigation
+consiste nell' attivare un'azione di navigazione all'interno del nostro codice.
+```html
+```
+importa il Router nel componente
+```typescript
+private router = inject(Router);
+```
+```typescript
+onSubmit() {
+this.router.navigate(['/users', this.userId(), 'task'], {
+replaceUrl: true,
+})
+}
+```
 ### Form
 #### template driven approach
 ```html
