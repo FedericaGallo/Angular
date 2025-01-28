@@ -644,9 +644,12 @@ activatedRoutes è un oggetto che contiene una serie di subject, quindi una seri
        ]
      },
 ```
-il tag ```<router-outlet />``` va aggiunto nel componente padre
-```typescript
+il tag ```<router-outlet />``` va aggiunto nel html del componente padre. Importa quindi RouterOutlet nel componente.
+```html
 <router-outlet />
+```
+```typescript
+import { RouterOutlet } from '@angular/router';
 ```
 https://angular.dev/guide/components/inputs
 https://angular.dev/api/core/Input
@@ -657,6 +660,18 @@ https://angular.dev/api/core/Input
   })
 );
 ```
+```typescript
+id = input.required<number>();
+url = '/getDocenteById/' + this.id!();
+```
+```typescript
+export const appConfig: ApplicationConfig = {
+  providers: [provideRouter(routes, withComponentInputBinding(), withRouterConfig({
+paramsInheritanceStrategy: 'always',
+    }))]
+};
+```
+Di default le rotte figlie non ricevono i parametri della rotta padre come input.
 ### Form
 #### template driven approach
 ```html
