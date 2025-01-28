@@ -693,7 +693,8 @@ replaceUrl: true,
 }
 ```
 ### Form
-#### template driven approach
+#### template-driven approach
+Con questo metodo il setup avviene nel template: si aggiungono direttive nel template, in modo da poter usare delle funzionalità offerte da angular per interagire con il form. Importa FormsModule nel componente e aggiungi nel markup ```ngModel``` senza two-way-binding negli input. Inoltre l'input deve avere l'attributo name impostato. 
 ```html
 <form (ngSubmit)="onSubmit(form)" #form="ngForm">
   <div class="input-group">
@@ -705,10 +706,6 @@ replaceUrl: true,
       <label>Cognome</label>
       <input type="text" ngModel name="cognome" id="cognome" required #cognome="ngModel">
     </p>
-    <p>
-      <label></label>
-      <input>
-    </p>
   </div>
   <p>
     <button>salva</button>
@@ -718,6 +715,7 @@ replaceUrl: true,
  </p>
 </form>
 ```
+Per accedere a questi input aggiungiamo una variabile di template ```#form``` al tag form. In questo modo abbiamo accesso all'oggetto DOM. Assegnamo a questa variabile di template un valore, uno speciale identificatore ```#form="ngForm"```, che ora legherà questa variabile del template del form a un oggetto di tipo ngForm, che è un oggetto creato e gestito da Angular,
 ```typescript
  <p *ngIf ="nome.touched && cognome.touched && form.form.invalid">
    invalid values detected
@@ -728,6 +726,7 @@ replaceUrl: true,
    invalid values detected
  </p>
 ```
+il form è passato come parametro al metodo onSubmit() ed è un oggetto di tipo NgForm creato da Angular. Questo oggetto ha una proprietà di nome form che contiene un oggetto chiamato FormGroup, che fra le altre contiene una proprietà value, settata dalla direttiva ngModel.
 ```typescript
 onSubmit(formData: NgForm) {
   if(formData.form.invalid){
@@ -737,6 +736,7 @@ onSubmit(formData: NgForm) {
   formData.form.reset();
   }
 ```
+Puoi aggiungere attributi per validazioni client-side come ```required```,  ```email```, ```minlength="6"```, ```max="9"``` nell'input, se nell'input è presente anche ```ngModel``` la validazione verrà trattata da angular come una direttiva.
 #### reactive form
 ```typescript
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/form';
