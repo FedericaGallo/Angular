@@ -694,7 +694,7 @@ replaceUrl: true,
 ```
 ### Form
 #### template-driven approach
-Con questo metodo il setup avviene nel template: si aggiungono direttive nel template, in modo da poter usare delle funzionalità offerte da angular per interagire con il form. Importa FormsModule nel componente e aggiungi nel markup ```ngModel``` senza two-way-binding negli input. Inoltre l'input deve avere l'attributo name impostato. 
+Con questo metodo il setup avviene nel template: si aggiungono direttive nel template, in modo da poter usare delle funzionalità offerte da angular per interagire con il form. Importa FormsModule nel componente e aggiungi nel markup ```ngModel``` senza two-way-binding nei tag input. Inoltre l'input deve avere l'attributo name impostato. 
 ```html
 <form (ngSubmit)="onSubmit(form)" #form="ngForm">
   <div class="input-group">
@@ -715,17 +715,8 @@ Con questo metodo il setup avviene nel template: si aggiungono direttive nel tem
  </p>
 </form>
 ```
-Per accedere a questi input aggiungiamo una variabile di template ```#form``` al tag form. In questo modo abbiamo accesso all'oggetto DOM. Assegnamo a questa variabile di template un valore, uno speciale identificatore ```#form="ngForm"```, che ora legherà questa variabile del template del form a un oggetto di tipo ngForm, che è un oggetto creato e gestito da Angular,
-```typescript
- <p *ngIf ="nome.touched && cognome.touched && form.form.invalid">
-   invalid values detected
- </p>
-```
-```typescript
- <p *ngIf ="nome.touched && cognome.touched && form.form.invalid">
-   invalid values detected
- </p>
-```
+Per accedere a questi input aggiungiamo una variabile di template ```#form``` al tag form. In questo modo abbiamo accesso all'oggetto DOM. Assegnamo a questa variabile di template un valore, uno speciale identificatore ```#form="ngForm"```, che ora legherà questa variabile di template del form a un oggetto di tipo ngForm, che è un oggetto creato e gestito da Angular,
+
 il form è passato come parametro al metodo onSubmit() ed è un oggetto di tipo NgForm creato da Angular. Questo oggetto ha una proprietà di nome form che contiene un oggetto chiamato FormGroup, che fra le altre contiene una proprietà value, settata dalla direttiva ngModel.
 ```typescript
 onSubmit(formData: NgForm) {
@@ -736,7 +727,24 @@ onSubmit(formData: NgForm) {
   formData.form.reset();
   }
 ```
-Puoi aggiungere attributi per validazioni client-side come ```required```,  ```email```, ```minlength="6"```, ```max="9"``` nell'input, se nell'input è presente anche ```ngModel``` la validazione verrà trattata da angular come una direttiva.
+c'è un modo migliore per accedere alle informazioni nel template: possiamo aggiungere una variabile di template ```#email="ngModel"```, in questo modo Angular creera un oggetto control
+```html
+ <p *ngIf ="email.touched && nome.touched && form.form.invalid">
+   invalid values detected
+ </p>
+```
+#### validazione
+Puoi aggiungere attributi per validazioni client-side come ```required```,  ```email```, ```minlength="6"```, ```max="9"``` nell'input, se nell'input è presente anche ```ngModel``` la validazione verrà trattata da angular come una direttiva. Nell'oggetto FormGroup troveremo l'attributo ```status: "INVALID"``` se i campi non sono stati compilati correttamente.
+```html
+ <p *ngIf ="nome.touched && cognome.touched && form.form.invalid">
+   invalid values detected
+ </p>
+```
+```html
+ <p *ngIf ="nome.touched && cognome.touched && form.form.invalid">
+   invalid values detected
+ </p>
+```
 #### reactive form
 ```typescript
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/form';
